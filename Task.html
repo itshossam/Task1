@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Hover Example</title>
+    <style>
+        /* CSS styles for the page */
+        #image {
+            width: 300px;
+            height: 300px;
+            background-color: #f0f0f0;
+            text-align: center;
+            line-height: 300px;
+            font-size: 18px;
+            transition: background-image 0.3s ease-in-out;
+        }
+
+        img {
+            margin: 10px;
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Image hover preview section -->
+    <div id="image">
+        <p>Hover over an image below to display here.</p>
+    </div>
+
+    <!-- Images to hover over -->
+    <img id="pic1" src="https://via.placeholder.com/150" alt="Image 1">
+    <img id="pic2" src="https://via.placeholder.com/150" alt="Image 2">
+    <img id="pic3" src="https://via.placeholder.com/150" alt="Image 3">
+
+    <script>
+        // JavaScript code to handle hover and reset
+        function upDate(previewPic) {
+            // Log to check if the event triggers
+            console.log('upDate triggered');
+            console.log('alt: ', previewPic.alt);
+            console.log('src: ', previewPic.src);
+
+            // Change the text inside the div with id="image"
+            document.getElementById('image').innerHTML = previewPic.alt;
+
+            // Change the background image of the div with id="image"
+            document.getElementById('image').style.backgroundImage = `url('${previewPic.src}')`;
+        }
+
+        function undo() {
+            // Reset the text of the div with id="image"
+            document.getElementById('image').innerHTML = "Hover over an image below to display here.";
+
+            // Reset the background image of the div with id="image"
+            document.getElementById('image').style.backgroundImage = "url('')";
+        }
+
+        // Add event listeners to the images
+        let images = document.querySelectorAll('img');
+        images.forEach(function(image) {
+            image.addEventListener('mouseover', function() {
+                upDate(image);  // Call upDate function when an image is hovered
+            });
+            image.addEventListener('mouseout', undo);  // Call undo when the mouse leaves the image
+        });
+    </script>
+</body>
+</html>
