@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Photo Gallery</title>
+    <style>
+        img {
+            width: 300px;
+            height: auto;
+            margin: 10px;
+            border: 2px solid transparent;
+        }
+
+        .focused {
+            border: 2px solid blue;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Interactive Photo Gallery</h1>
+
+    <div id="gallery">
+        <img src="image1.jpg" alt="Image 1 description" tabindex="0">
+        <img src="image2.jpg" alt="Image 2 description" tabindex="0">
+        <img src="image3.jpg" alt="Image 3 description" tabindex="0">
+        <img src="image4.jpg" alt="Image 4 description" tabindex="0">
+        <img src="image5.jpg" alt="Image 5 description" tabindex="0">
+        <img src="image6.jpg" alt="Image 6 description" tabindex="0">
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Select all images in the gallery
+            const images = document.querySelectorAll("#gallery img");
+
+            // Add mouseover and mouseleave event listeners
+            images.forEach(image => {
+                image.addEventListener("mouseover", function() {
+                    console.log("Mouse is over the image: " + image.alt);
+                    image.style.border = "2px solid red"; // Change border color on hover
+                });
+
+                image.addEventListener("mouseleave", function() {
+                    console.log("Mouse left the image: " + image.alt);
+                    image.style.border = "2px solid transparent"; // Remove border on mouse leave
+                });
+
+                // Add focus and blur event listeners
+                image.addEventListener("focus", function() {
+                    console.log("Image focused: " + image.alt);
+                    image.classList.add("focused"); // Add a blue border when focused
+                });
+
+                image.addEventListener("blur", function() {
+                    console.log("Image lost focus: " + image.alt);
+                    image.classList.remove("focused"); // Remove the focus styling
+                });
+            });
+
+            // Function to be called on page load
+            window.onload = function() {
+                console.log("Page loaded successfully");
+                addTabIndexToImages();
+            };
+
+            // Function to add tabindex dynamically (if needed)
+            function addTabIndexToImages() {
+                images.forEach((image, index) => {
+                    image.setAttribute("tabindex", index + 1); // Add tabindex starting from 1
+                });
+            }
+
+            // Add tabindex dynamically
+            addTabIndexToImages();
+        });
+    </script>
+
+</body>
+</html>
